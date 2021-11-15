@@ -40,7 +40,7 @@ samples = 4000
 rings = 1000
 
 # lat, height and lon for site
-b1_Ali = EarthLocation.from_geodetic(-80.0305 *
+site_loc = EarthLocation.from_geodetic(-80.0305 *
                                      u.deg, 32.3105*u.deg, 5200*u.m)
 start_observing = Time('2020-12-21 1:00')
 delta_time = np.arange(rings)/24/60 # time interval
@@ -52,7 +52,7 @@ az = np.zeros((rings, samples))
 for i in range(rings):
     az[i] = np.linspace(0, 360, samples)
 
-aa = AltAz(az=az*u.deg, alt=alt*u.deg, location=b1_Ali, obstime=observing_time)
+aa = AltAz(az=az*u.deg, alt=alt*u.deg, location=site_loc, obstime=observing_time)
 ra = aa.transform_to(ICRS).ra.deg
 dec = aa.transform_to(ICRS).dec.deg
 pix = hp.ang2pix(nside=nside, theta=ra, phi=dec, lonlat=True)
